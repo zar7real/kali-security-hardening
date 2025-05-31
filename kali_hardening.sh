@@ -9,7 +9,6 @@
 SSH_PORT=2222
 LOG_FILE="/var/log/kali_security_hardening.log"
 KERNEL_HARDENING=1  # 1 to enable kernel hardening, 0 to disable
-SELINUX_ENABLE=1    # 1 to enable SELinux, 0 to disable
 
 # Color definitions for beautiful CLI output
 RED='\033[0;31m'
@@ -85,17 +84,6 @@ print_status "System update completed successfully"
 print_header "SECURITY TOOLS INSTALLATION"
 print_progress "Installing essential security tools..."
 apt install -y ufw fail2ban rkhunter chkrootkit auditd lynis
-
-# SELinux installation if requested
-if [ $SELINUX_ENABLE -eq 1 ]; then
-    print_progress "Installing and configuring SELinux..."
-    apt install -y selinux-basics selinux-policy-default auditd
-    selinux-activate
-    setenforce 1
-    print_status "SELinux installation and configuration completed"
-else
-    print_info "SELinux installation skipped (disabled in configuration)"
-fi
 
 ### 3. KERNEL HARDENING ###
 if [ $KERNEL_HARDENING -eq 1 ]; then
@@ -316,14 +304,6 @@ ufw status verbose | tee -a $LOG_FILE
 echo ""
 print_info "Fail2ban Status:"
 fail2ban-client status sshd | tee -a $LOG_FILE
-
-echo ""
-print_info "SELinux Status:"
-if [ $SELINUX_ENABLE -eq 1 ]; then
-    sestatus | tee -a $LOG_FILE
-else
-    echo "SELinux not activated" | tee -a $LOG_FILE
-fi
 
 echo ""
 print_info "Protected Files Status:"
