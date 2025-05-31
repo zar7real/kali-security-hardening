@@ -50,7 +50,7 @@ This comprehensive security hardening script transforms your Kali Linux installa
 ### 🛠️ System Optimization
 
 - **Service Hardening** - Disables unnecessary services (Bluetooth, CUPS, Avahi, etc.)
-- **SELinux Integration** - Optional mandatory access control implementation
+- **AppArmor Integration** - Mandatory access control for enhanced security
 - **File Permissions** - SUID/SGID and world-writable file detection
 - **Log Management** - Centralized security event logging
 
@@ -93,7 +93,6 @@ Edit the configuration variables at the top of the script before running:
 SSH_PORT=2222              # Custom SSH port (default: 2222)
 LOG_FILE="/var/log/kali_security_hardening.log"  # Log file location
 KERNEL_HARDENING=1         # 1 = Enable, 0 = Disable kernel hardening
-SELINUX_ENABLE=1          # 1 = Enable, 0 = Disable SELinux
 ```
 
 ### 🎛️ Customization Options
@@ -102,7 +101,6 @@ SELINUX_ENABLE=1          # 1 = Enable, 0 = Disable SELinux
 |--------|---------|-------------|
 | `SSH_PORT` | 2222 | Custom SSH port to reduce automated attacks |
 | `KERNEL_HARDENING` | 1 | Enable advanced kernel security features |
-| `SELINUX_ENABLE` | 1 | Enable SELinux mandatory access control |
 | `LOG_FILE` | `/var/log/kali_security_hardening.log` | Security audit log location |
 
 ---
